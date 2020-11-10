@@ -73,6 +73,14 @@ void searching(int arr[], int n, int ele){
     }
     cout<<i;
 }
+void getindex(int arr[] ,int n, int index){
+    if(index<n){
+        cout<<arr[index];
+    }
+    else{
+        cout<<"invalid index";
+    }
+}
 int  main(){
     int arr[]={1,2,3,4,5};
     int n=5;
@@ -84,5 +92,6 @@ int  main(){
     deleteatend(arr,n);
     searching(arr,n,2);
     searching (arr,n,1);
+    getindex(arr,n,3);
     return 0;
 }
