@@ -39,18 +39,15 @@ void deleteatfirst(int arr[],int n){
     for(int i=0; i<=n; i++){
         arr[i]=arr[i+1];
     }
-    n--;
     for(int i=0; i<=n; i++){
         cout<<arr[i]<<" ";
     }
     cout<<"\n";
 }
 void deleteatmiddle(int arr[], int n, int pos){
-    int i;
-    for(i=pos-1; i<n; i++){
-        arr[i]=arr[i-1];
+    for(int i=pos-1; i<n; i++){
+        arr[i]=arr[i+1];
     }
-    n--;
     for(int i=0; i<n; i++){
         cout<<arr[i]<<" ";
     }
@@ -71,14 +68,14 @@ void searching(int arr[], int n, int ele){
             break;
         }
     }
-    cout<<i;
+    cout<<i<<endl;
 }
 void getindex(int arr[] ,int n, int index){
     if(index<n){
-        cout<<arr[index];
+        cout<<arr[index]<<endl;
     }
     else{
-        cout<<"invalid index";
+        cout<<"invalid index"<<endl;
     }
 }
 int  main(){
@@ -88,7 +85,7 @@ int  main(){
     insertatend(arr,n,6);
     insertatmiddle(arr,n,20,3);
     deleteatfirst(arr, n);
-    deleteatmiddle(arr,n,4);
+    deleteatmiddle(arr,n,2);
     deleteatend(arr,n);
     searching(arr,n,2);
     searching (arr,n,1);
