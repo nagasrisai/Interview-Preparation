@@ -1,0 +1,143 @@
+#include<bits/stdc++.h>
+
+using  namespace  std;
+
+# define MAX 7
+
+class Node {
+public:
+    int data;
+    Node* next;
+};
+
+Node* Create_node(int data) {
+    Node* new_node=new Node();
+
+    new_node->data=data;
+
+    new_node->next=NULL;
+
+    return new_node;
+}
+
+Node* insert_node(Node** root, int data, int *top) {
+    if(*root==NULL) {
+        Node* new_nodee = Create_node(data);
+        *top=*top+1;
+
+        cout<<"pushed into stack"<<data<<"\n";
+
+        return *root;
+    }
+    else {
+        if(*top<(MAX-1)) {
+            Node *new_nodee = Create_node(data);
+
+            new_nodee->next = *root;
+
+            *root = new_nodee;
+
+            *top = *top + 1;
+
+            cout<<"pushed into stack"<<data<<"\n";
+
+            return *root;
+        }
+    }
+}
+
+bool isempty(Node** root)  {
+    if(*root==NULL) {
+
+        cout<<"stack is empty"<<"\n";
+
+        return true;
+    }
+    else {
+
+        cout<<"stack is not empyt"<<"\n";
+        return false;
+    }
+
+}
+
+Node* pop(Node** root, int *top) {
+    if(*root==NULL) {
+
+        cout<<"stack Underflow";
+
+        return *root;
+
+    }
+
+    else {
+        Node* prev,*next;
+
+        prev=*root;
+
+        next=(*root)->next;
+
+        *root=(*root)->next;
+
+        cout<<"Popped Element is"<<prev->data<<"\n";
+
+        free(prev);
+
+        *top=*top-1;
+
+        return *root;
+
+    }
+}
+
+void peek(Node** root) {
+
+    if(*root==NULL) {
+        cout<<"stack Underflow"<<"\n";
+
+    }
+    else {
+
+        cout<<"peek element is"<<(*root)->data<<"\n";
+
+    }
+
+}
+
+int main() {
+    Node* root=NULL;
+
+    int top=0;
+
+    root=insert_node(&root,1, &top);
+
+    root=insert_node(&root,2,&top);
+
+    root=insert_node(&root,3,&top);
+
+    root=insert_node(&root,4,&top);
+
+    root=insert_node(&root,5,&top);
+
+    root=insert_node(&root,6,&top);
+
+    root=insert_node(&root,7,&top);
+
+    root=insert_node(&root,8,&top);
+
+    root=insert_node(&root,9,&top);
+
+    peek(&root);
+
+    isempty(&root);
+
+    root=pop(&root,&top);
+
+    peek(&root);
+
+    root=pop(&root,&top);
+
+    cout<<"the size of stack is "<<top;
+
+    return 0;
+}
