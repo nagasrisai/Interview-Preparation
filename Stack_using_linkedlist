@@ -1,143 +1,136 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
-using  namespace  std;
+using namespace std;
 
-# define MAX 7
+ 
 
-class Node {
-public:
+struct Node
+{
     int data;
-    Node* next;
+    struct Node* link;
 };
 
-Node* Create_node(int data) {
-    Node* new_node=new Node();
+struct Node* top;
 
-    new_node->data=data;
+void push(int data)
+{
 
-    new_node->next=NULL;
+    
+    struct Node* temp;
+    temp = new Node();
 
-    return new_node;
+    if (!temp)
+    {
+        cout << "\nHeap Overflow";
+        return;
+    }
+
+     
+    temp->data = data;
+
+     
+    temp->link = top;
+
+     
+    top = temp;
 }
 
-Node* insert_node(Node** root, int data, int *top) {
-    if(*root==NULL) {
-        Node* new_nodee = Create_node(data);
-        *top=*top+1;
+int isEmpty()
+{
+    return top == NULL;
+}
 
-        cout<<"pushed into stack"<<data<<"\n";
+ 
+int peek()
+{
 
-        return *root;
+     
+    if (!isEmpty())
+        return top->data;
+    else
+        exit(1);
+}
+
+void pop()
+{
+    struct Node* temp;
+
+    
+    if (top == NULL)
+    {
+        cout << "\nStack Underflow" << endl;
+        exit(1);
     }
-    else {
-        if(*top<(MAX-1)) {
-            Node *new_nodee = Create_node(data);
+    else
+    {
 
-            new_nodee->next = *root;
+         
+        temp = top;
 
-            *root = new_nodee;
+         
+        top = top->link;
 
-            *top = *top + 1;
+        temp->link = NULL;
 
-            cout<<"pushed into stack"<<data<<"\n";
+         
+        free(temp);
+    }
+}
 
-            return *root;
+void display()
+{
+    struct Node* temp;
+
+     
+    if (top == NULL)
+    {
+        cout << "\nStack Underflow";
+        exit(1);
+    }
+    else
+    {
+        temp = top;
+        while (temp != NULL)
+        {
+
+             
+            cout << temp->data << " ";
+
+             
+            temp = temp->link;
         }
     }
 }
 
-bool isempty(Node** root)  {
-    if(*root==NULL) {
 
-        cout<<"stack is empty"<<"\n";
+int main()
+{
 
-        return true;
-    }
-    else {
+     
+    push(11);
+    push(22);
+    push(33);
+    push(44);
 
-        cout<<"stack is not empyt"<<"\n";
-        return false;
-    }
+    
+    display();
 
-}
+     
+    cout << "\nTop element is "
+         << peek() << endl;
 
-Node* pop(Node** root, int *top) {
-    if(*root==NULL) {
+    
+    pop();
+    pop();
 
-        cout<<"stack Underflow";
+     
+    display();
 
-        return *root;
-
-    }
-
-    else {
-        Node* prev,*next;
-
-        prev=*root;
-
-        next=(*root)->next;
-
-        *root=(*root)->next;
-
-        cout<<"Popped Element is"<<prev->data<<"\n";
-
-        free(prev);
-
-        *top=*top-1;
-
-        return *root;
-
-    }
-}
-
-void peek(Node** root) {
-
-    if(*root==NULL) {
-        cout<<"stack Underflow"<<"\n";
-
-    }
-    else {
-
-        cout<<"peek element is"<<(*root)->data<<"\n";
-
-    }
-
-}
-
-int main() {
-    Node* root=NULL;
-
-    int top=0;
-
-    root=insert_node(&root,1, &top);
-
-    root=insert_node(&root,2,&top);
-
-    root=insert_node(&root,3,&top);
-
-    root=insert_node(&root,4,&top);
-
-    root=insert_node(&root,5,&top);
-
-    root=insert_node(&root,6,&top);
-
-    root=insert_node(&root,7,&top);
-
-    root=insert_node(&root,8,&top);
-
-    root=insert_node(&root,9,&top);
-
-    peek(&root);
-
-    isempty(&root);
-
-    root=pop(&root,&top);
-
-    peek(&root);
-
-    root=pop(&root,&top);
-
-    cout<<"the size of stack is "<<top;
+     
+    cout << "\nTop element is "
+         << peek() << endl;
 
     return 0;
 }
+
+ 
