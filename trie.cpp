@@ -41,6 +41,50 @@ bool search(trie* root, string str) {
     return(node!=NULL && node->endword);
 }
 
+bool isEmpty(TrieNode* root) 
+{ 
+    for (int i = 0; i < ALPHABET_SIZE; i++) 
+        if (root->children[i]) 
+            return false; 
+    return true; 
+} 
+  
+
+TrieNode* remove(TrieNode* root, string key, int depth = 0) 
+{ 
+     
+    if (!root) 
+        return NULL; 
+  
+    
+    if (depth == key.size()) { 
+  
+         
+        if (root->isEndOfWord) 
+            root->isEndOfWord = false; 
+  
+         
+        if (isEmpty(root)) { 
+            delete (root); 
+            root = NULL; 
+        } 
+  
+        return root; 
+    } 
+  
+     
+    int index = key[depth] - 'a'; 
+    root->children[index] =  
+          remove(root->children[index], key, depth + 1); 
+  
+    if (isEmpty(root) && root->isEndOfWord == false) { 
+        delete (root); 
+        root = NULL; 
+    } 
+  
+    return root; 
+} 
+
 int main(){
     string keys[] = {"the", "a", "there",
                      "answer", "any", "by",
