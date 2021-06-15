@@ -46,11 +46,8 @@ void insert_at_middle (node * root, int data, int pos) {
     for (int i = 0; i < pos; i++) {
         curr = curr->next;
     }
-    next = curr->next;
-
-    curr->next = insert_node;
-
-    insert_node = next;
+    insert_node->next=curr->next;
+    curr->next=insert_node;
 }
 
 void insert_at_end (node * root, int data) {
@@ -65,16 +62,14 @@ void insert_at_end (node * root, int data) {
     }
 
     curr->next = insert_node;
+    insert_node->next=NULL;
 }
 
-void delete_at_beggining (node * root) {
-    node *next = root->next;
-
-    node *prev = root;
-
-    root = next;
-
-    free (prev);
+void delete_at_beggining (node **root) {
+    node *curr=*root;
+    *root=(*root)->next;
+    free(curr);
+    
 }
 
 void delete_at_middle (node * root, int pos) {
@@ -87,15 +82,18 @@ void delete_at_middle (node * root, int pos) {
     prev = curr;
     next = curr->next->next;
     free (curr->next);
+    curr->next=NULL;
 }
 
 void delete_at_end (node * root) {
     node *curr = root;
-    while (curr->next->next != NULL) {
-        curr = curr->next;
+    while(curr->next->next!=NULL){
+        curr=curr->next;
     }
-    node *next = curr->next;
-    free (next);
+    
+    free(curr->next);
+    curr->next=NULL;
+    
 }
 
 void print_nodes (node * root) {
@@ -129,10 +127,16 @@ int main () {
     insert_at_end (root, 7);
 
     print_nodes (root);
+    
+    cout<<'\n';
 
-    delete_at_beggining (root);
+    delete_at_beggining (&root);
+    print_nodes (root);
+    cout<<'\n';
 
     delete_at_middle (root, 3);
+    print_nodes (root);
+    cout<<'\n';
 
     delete_at_end (root);
 
